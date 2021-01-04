@@ -1,12 +1,18 @@
 package com.mycompany.list;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class MainClass {
     public static void main(String[] args) {
-//        test();
-        compareLists();
+        test();
+        System.out.println("MyLinkedList and java.util.LinkedList compare\n");
+        compareListsAll();
+        System.out.println("\nArrayList and LinkedList compare\n");
+        TestCollections.compCollectA();
+        System.out.println("\nHashSet, LinkedHashSet and TreeSet compare\n");
+        TestCollections.compCollectB();
+        System.out.println("\nHashMap, LinkedHashMap and TreeMap compare\n");
+        TestCollections.compCollectC();
 
     }
 
@@ -28,11 +34,8 @@ public class MainClass {
         System.out.println(strings);
     }
 
-    public static void compareLists() {
+    public static void compareListsInsert(ILinkedList<String> myStrings, List<String> jStrings, int n) {
         String str = "example";
-        ILinkedList<String> myStrings = new MyLinkedList<>();
-        List<String> jStrings = new LinkedList<>();
-        int n = 5000;
         System.out.println("*inserting " + n + " elements");
         long start = System.nanoTime();
         for (int i = 0; i < n; i++) {
@@ -51,7 +54,11 @@ public class MainClass {
         end = System.nanoTime();
 
         System.out.println("My List = " + (end - start) / 1E6 + " ms");
+    }
 
+    public static void compareListsFind(ILinkedList<String> myStrings, List<String> jStrings, int n) {
+        String str = "example";
+        long start, end;
         System.out.println("*finding " + n + " elements");
 
         start = System.nanoTime();
@@ -71,9 +78,11 @@ public class MainClass {
         end = System.nanoTime();
 
         System.out.println("My List = " + (end - start) / 1E6 + " ms");
+    }
 
+    public static void compareListsDelete(ILinkedList<String> myStrings, List<String> jStrings, int n) {
         System.out.println("*deleting " + n + " elements");
-
+        long start, end;
         start = System.nanoTime();
         for (int i = 0; i < n; i++) {
             jStrings.remove(jStrings.size() / 2);
@@ -91,7 +100,12 @@ public class MainClass {
         System.out.println("My List = " + (end - start) / 1E6 + " ms");
     }
 
-    public static void compareCollections() {
-        
+    public static void compareListsAll() {
+        ILinkedList<String> myStrings = new MyLinkedList<>();
+        List<String> jStrings = new LinkedList<>();
+        int n = 5000;
+        compareListsInsert(myStrings, jStrings, n);
+        compareListsFind(myStrings, jStrings, n);
+        compareListsDelete(myStrings, jStrings, n);
     }
 }
