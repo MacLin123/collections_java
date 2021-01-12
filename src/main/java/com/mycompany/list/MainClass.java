@@ -29,9 +29,21 @@ public class MainClass {
         System.out.println(strings.get(3));
         System.out.println(strings.indexOf("dsd1"));
         System.out.println(strings);
-        strings.clear();
 
-        System.out.println(strings);
+        //toArray
+        System.out.println("toArray");
+        String[] strArray = new String[strings.size()];
+        strings.toArray(strArray);
+
+        for (int i = 0; i < strArray.length; i++) {
+            System.out.println(strArray[i]);
+        }
+        //foreach
+        System.out.println("foreach");
+        for (String str:strings) {
+            System.out.println(str);
+        }
+        strings.clear();
     }
 
     public static void compareListsInsert(ILinkedList<String> myStrings, List<String> jStrings, int n) {

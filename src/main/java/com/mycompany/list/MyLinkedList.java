@@ -1,6 +1,6 @@
 package com.mycompany.list;
 
-import java.util.Arrays;
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Objects;
@@ -85,7 +85,7 @@ public class MyLinkedList<E> implements ILinkedList<E> {
     @Override
     public String toString() {
         return "MyLinkedList{" +
-                Arrays.toString(toArray()) +
+//                Arrays.toString(toArray()) +
                 '}';
     }
 
@@ -223,13 +223,19 @@ public class MyLinkedList<E> implements ILinkedList<E> {
         return size;
     }
 
-    @Override
-    public E[] toArray() {
-        E[] result = (E[]) new Object[size];
+    //    @Override
+    @SuppressWarnings("unchecked")
+    public <T> T[] toArray(T[] a) {
+        if (a.length < size) {
+            a = (T[]) Array.newInstance(a.getClass().getComponentType(), size);
+        }
         int i = 0;
+        Object[] result = a;
         for (E elem : this) {
             result[i++] = elem;
         }
-        return result;
+        if (a.length > size)
+            a[size] = null;
+        return a;
     }
 }
